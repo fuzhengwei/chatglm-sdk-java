@@ -144,3 +144,13 @@ chatgpt:
       # 官网申请 https://open.bigmodel.cn/usercenter/apikeys
       api-key: 4e087e4135306ef4a676f0cce3cee560.sgP2DUs*****
 ```
+
+---
+
+- 👨‍💻 成长：[关于我，从小白到架构师的成长经历](https://www.bilibili.com/video/BV1FF41137q5)
+- 🚌 作品：[`CodeGuide | 程序员编码指南`](https://github.com/fuzhengwei/CodeGuide) | [`RoadMap 编程路书`](https://github.com/fuzhengwei/RoadMap) | [`Java 数据结构和算法`](https://github.com/fuzhengwei/java-algorithms) | [`IM 仿微信`](https://github.com/fuzhengwei/NaiveChat) | [`Java 面经手册`](https://github.com/fuzhengwei/interview) | [`IntelliJ IDEA 插件开发`](https://github.com/fuzhengwei/guide-idea-plugin) | [`Lottery 抽奖系统 - 基于领域驱动设计的四层架构实践`](https://github.com/fuzhengwei/Lottery) | [`API网关`](https://github.com/fuzhengwei/api-gateway) | [`手写MyBatis`](https://github.com/fuzhengwei/small-mybatis) | [`重学Java设计模式`](https://github.com/fuzhengwei/itstack-demo-design) | [`Netty 实战案例`](https://github.com/fuzhengwei/itstack-demo-netty) | [`字节码编程`](https://github.com/fuzhengwei/itstack-demo-bytecode) | [`ChatGPT AI 问答助手`](https://github.com/fuzhengwei/chatbot-api) | [更多搜索...](https://github.com/fuzhengwei?tab=repositories)
+- 🌱 干货：[公众号『 bugstack虫洞栈 』](https://bugstack.cn/images/personal/qrcode.png)
+- 📝 博客：[bugstack.cn](https://bugstack.cn/) - 足够硬核，内容老狠了！
+- 📺 视频：[B站 小傅哥の码场](https://space.bilibili.com/15637440)
+- 💌 微信：[fustack](https://bugstack.cn/images/personal/fustack.png) - 备注来意
+- 🐾 我的编程知识星球：[实战生产级项目、手写框架级源码，可以向我 1对1 提问，解答技术/职场/规划问题](https://bugstack.cn/md/zsxq/introduce.html)
