@@ -30,6 +30,10 @@
 </dependency>
 ```
 
+- 源码(Github)：[https://github.com/fuzhengwei/chatglm-sdk-java](https://github.com/fuzhengwei/chatglm-sdk-java)
+- 源码(Gitee)：[https://gitee.com/fustack/chatglm-sdk-java](https://gitee.com/fustack/chatglm-sdk-java)
+- 源码(Gitcode)：[https://gitcode.net/KnowledgePlanet/road-map/chatglm-sdk-java](https://gitcode.net/KnowledgePlanet/road-map/chatglm-sdk-java)
+
 ## 2. 功能测试
 
 ### 2.1 代码执行
