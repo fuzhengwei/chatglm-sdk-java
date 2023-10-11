@@ -10,11 +10,13 @@
 
 ## 👣目录
 
-- 组件配置
-- 功能测试
-- 程序接入
+1. 组件配置
+2. 功能测试
+   1. 代码执行 - `使用：代码的方式主要用于程序接入`
+   2. 脚本测试 - `测试：生成Token，直接通过HTTP访问Ai服务`
+3. 程序接入
 
-## 组件配置
+## 1. 组件配置
 
 - 申请ApiKey：[https://open.bigmodel.cn/usercenter/apikeys](https://open.bigmodel.cn/usercenter/apikeys) - 注册申请开通，即可获得 ApiKey
 - 运行环境：JDK 1.8+
@@ -28,7 +30,9 @@
 </dependency>
 ```
 
-## 功能测试
+## 2. 功能测试
+
+### 2.1 代码执行
 
 ```java
 @Slf4j
@@ -95,7 +99,49 @@ public class ApiTest {
 
 - 这是一个单元测试类，也是最常使用的流式对话模式。
 
-## 程序接入
+### 2.2 脚本测试
+
+```java
+@Test
+public void test_curl() {
+    // 1. 配置文件
+    Configuration configuration = new Configuration();
+    configuration.setApiHost("https://open.bigmodel.cn/");
+    configuration.setApiSecretKey("4e087e4135306ef4a676f0cce3cee560.sgP2D****");
+    // 2. 获取Token
+    String token = BearerTokenUtils.getToken(configuration.getApiKey(), configuration.getApiSecret());
+    log.info("1. 在智谱Ai官网，申请 ApiSeretKey 配置到此测试类中，替换 setApiSecretKey 值。 https://open.bigmodel.cn/usercenter/apikeys");
+    log.info("2. 运行 test_curl 获取 token：{}", token);
+    log.info("3. 将获得的 token 值，复制到 curl.sh 中，填写到 Authorization: Bearer 后面");
+    log.info("4. 执行完步骤3以后，可以复制直接运行 curl.sh 文件，或者复制 curl.sh 文件内容到控制台/终端/ApiPost中运行");
+}
+```
+
+```java
+curl -X POST \
+        -H "Authorization: Bearer <把获得的Token填写这，并去掉两个尖括号>" \
+        -H "Content-Type: application/json" \
+        -H "User-Agent: Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)" \
+        -H "Accept: text/event-stream" \
+        -d '{
+        "top_p": 0.7,
+        "sseFormat": "data",
+        "temperature": 0.9,
+        "incremental": true,
+        "request_id": "xfg-1696992276607",
+        "prompt": [
+        {
+        "role": "user",
+        "content": "写个java冒泡排序"
+        }
+        ]
+        }' \
+  http://open.bigmodel.cn/api/paas/v3/model-api/chatglm_lite/sse-invoke
+```
+
+- 运行后你会获得一个 Token 信息，之后在 curl.sh 中替换  Authorization: Bearer 后面的值。就可以执行测试了。
+
+## 3. 程序接入
 
 SpringBoot 配置类
 
