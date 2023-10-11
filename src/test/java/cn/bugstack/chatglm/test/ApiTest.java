@@ -5,6 +5,7 @@ import cn.bugstack.chatglm.session.Configuration;
 import cn.bugstack.chatglm.session.OpenAiSession;
 import cn.bugstack.chatglm.session.OpenAiSessionFactory;
 import cn.bugstack.chatglm.session.defaults.DefaultOpenAiSessionFactory;
+import cn.bugstack.chatglm.utils.BearerTokenUtils;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
@@ -81,6 +82,21 @@ public class ApiTest {
 
         // 等待
         new CountDownLatch(1).await();
+    }
+
+    @Test
+    public void test_curl() {
+        // 1. 配置文件
+        Configuration configuration = new Configuration();
+        configuration.setApiHost("https://open.bigmodel.cn/");
+        configuration.setApiSecretKey("4e087e4135306ef4a676f0cce3cee560.sgP2DUs******");
+
+        // 2. 获取Token
+        String token = BearerTokenUtils.getToken(configuration.getApiKey(), configuration.getApiSecret());
+        log.info("1. 在智谱Ai官网，申请 ApiSeretKey 配置到此测试类中，替换 setApiSecretKey 值。 https://open.bigmodel.cn/usercenter/apikeys");
+        log.info("2. 运行 test_curl 获取 token：{}", token);
+        log.info("3. 将获得的 token 值，复制到 curl.sh 中，填写到 Authorization: Bearer 后面");
+        log.info("4. 执行完步骤3以后，可以复制直接运行 curl.sh 文件，或者复制 curl.sh 文件内容到控制台/终端/ApiPost中运行");
     }
 
 }
