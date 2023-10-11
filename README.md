@@ -105,6 +105,7 @@ SpringBoot 配置类
 public class ChatGLMSDKConfig {
 
     @Bean
+    @ConditionalOnProperty(value = "chatglm.sdk.config.enabled", havingValue = "true", matchIfMissing = false)
     public OpenAiSession openAiSession(ChatGLMSDKConfigProperties properties) {
         // 1. 配置文件
         cn.bugstack.chatglm.session.Configuration configuration = new cn.bugstack.chatglm.session.Configuration();
@@ -123,7 +124,9 @@ public class ChatGLMSDKConfig {
 @Data
 @ConfigurationProperties(prefix = "chatglm.sdk.config", ignoreInvalidFields = true)
 public class ChatGLMSDKConfigProperties {
-    
+
+    /** 状态；open = 开启、close 关闭 */
+    private boolean enable;
     /** 转发地址 */
     private String apiHost;
     /** 可以申请 sk-*** */
@@ -132,13 +135,22 @@ public class ChatGLMSDKConfigProperties {
 }
 ```
 
+```java
+@Autowired(required = false)
+private OpenAiSession openAiSession;
+```
+
+- 注意：如果你在服务中配置了关闭启动 ChatGLM SDK 那么注入 openAiSession 为 null
+
 yml 配置
 
 ```pom
 # ChatGLM SDK Config
-chatgpt:
+chatglm:
   sdk:
     config:
+      # 状态；true = 开启、false 关闭
+      enabled: false
       # 官网地址 
       api-host: https://open.bigmodel.cn/
       # 官网申请 https://open.bigmodel.cn/usercenter/apikeys
