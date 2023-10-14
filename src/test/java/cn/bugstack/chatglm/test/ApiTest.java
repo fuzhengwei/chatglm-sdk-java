@@ -78,6 +78,7 @@ public class ApiTest {
             public void onClosed(EventSource eventSource) {
                 log.info("对话完成");
             }
+
         });
 
         // 等待
@@ -89,7 +90,7 @@ public class ApiTest {
         // 1. 配置文件
         Configuration configuration = new Configuration();
         configuration.setApiHost("https://open.bigmodel.cn/");
-        configuration.setApiSecretKey("4e087e4135306ef4a676f0cce3cee560.sgP2DUs******");
+        configuration.setApiSecretKey("4e087e4135306ef4a676f0cce3cee560.sgP2DUsWEVPxk0UI");
 
         // 2. 获取Token
         String token = BearerTokenUtils.getToken(configuration.getApiKey(), configuration.getApiSecret());

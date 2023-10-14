@@ -14,16 +14,16 @@
 
     <licenses>
         <license>
-            <name>MIT License</name>
-            <url>https://www.opensource.org/licenses/mit-license.php</url>
+            <name>Apache License</name>
+            <url>https://opensource.org/license/apache-2-0/</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <developers>
         <developer>
-            <id>Southeast</id>
-            <name>Southeast</name>
+            <id>Xiaofuge</id>
+            <name>Xiaofuge</name>
             <email>184172133@qq.com</email>
             <url>https://github.com/fuzhengwei</url>
             <organization>chatglm ai</organization>
