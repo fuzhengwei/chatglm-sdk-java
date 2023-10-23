@@ -22,11 +22,11 @@ import java.util.concurrent.TimeUnit;
 public class BearerTokenUtils {
 
     // 过期时间；默认30分钟
-    private static final int expireMillis = 30 * 60 * 1000;
+    private static final long expireMillis = 30 * 60 * 1000L;
 
     // 缓存服务
     public static Cache<String, String> cache = CacheBuilder.newBuilder()
-            .expireAfterWrite(expireMillis - (60 * 1000), TimeUnit.MINUTES)
+            .expireAfterWrite(expireMillis - (60 * 1000L), TimeUnit.SECONDS)
             .build();
 
     /**
