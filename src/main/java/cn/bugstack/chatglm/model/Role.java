@@ -20,6 +20,8 @@ public enum Role {
      * 模型生成的内容，role位assistant
      */
     assistant("assistant"),
+    system("system"),
+
     ;
     private final String code;
 

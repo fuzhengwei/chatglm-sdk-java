@@ -35,7 +35,7 @@ public class ApiTest {
         // 1. 配置文件
         Configuration configuration = new Configuration();
         configuration.setApiHost("https://open.bigmodel.cn/");
-        configuration.setApiSecretKey("4e087e4135306ef4a676f0cce3cee560.sgP2DUsWEVPxk0UI");
+        configuration.setApiSecretKey("d570f7c5d289cdac2abdfdc562e39f3f.trqz1dH8ZK6ED7Pg");
         // 2. 会话工厂
         OpenAiSessionFactory factory = new DefaultOpenAiSessionFactory(configuration);
         // 3. 开启会话
@@ -54,10 +54,24 @@ public class ApiTest {
             private static final long serialVersionUID = -7988151926241837899L;
 
             {
+
                 add(ChatCompletionRequest.Prompt.builder()
                         .role(Role.user.getCode())
-                        .content("写个java冒泡排序")
+                        .content("你是一个专业的互联网文章作者，擅长互联网技术介绍、互联网商业、技术应用等方面的写作。\n" +
+                                "接下来你要根据用户给你的主题，拓展生成用户想要的文字内容，内容可能是一篇文章、一个开头、一段介绍文字、文章总结、文章结尾等等。\n" +
+                                "要求语言通俗易懂、幽默有趣，并且要以第一人称的口吻。")
                         .build());
+
+                add(ChatCompletionRequest.Prompt.builder()
+                        .role(Role.system.getCode())
+                        .content("请问有什么需要帮助的吗")
+                        .build());
+
+                add(ChatCompletionRequest.Prompt.builder()
+                        .role(Role.user.getCode())
+                        .content("Okay")
+                        .build());
+
             }
         });
 
@@ -90,7 +104,7 @@ public class ApiTest {
         // 1. 配置文件
         Configuration configuration = new Configuration();
         configuration.setApiHost("https://open.bigmodel.cn/");
-        configuration.setApiSecretKey("4e087e4135306ef4a676f0cce3cee560.sgP2DUsWEVPxk0UI");
+        configuration.setApiSecretKey("4d00226f242793b9c267a64ab2eaf5cb.aIwQNiG59MhSWJbn");
 
         // 2. 获取Token
         String token = BearerTokenUtils.getToken(configuration.getApiKey(), configuration.getApiSecret());
