@@ -62,6 +62,7 @@ public class ApiTest {
                                 "要求语言通俗易懂、幽默有趣，并且要以第一人称的口吻。")
                         .build());
 
+                /* system 和 user 为一组出现 */
                 add(ChatCompletionRequest.Prompt.builder()
                         .role(Role.system.getCode())
                         .content("请问有什么需要帮助的吗")

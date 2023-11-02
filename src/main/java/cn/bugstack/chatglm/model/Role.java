@@ -20,6 +20,10 @@ public enum Role {
      * 模型生成的内容，role位assistant
      */
     assistant("assistant"),
+
+    /**
+     * 系统
+     */
     system("system"),
 
     ;
