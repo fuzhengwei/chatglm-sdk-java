@@ -50,14 +50,25 @@ public class ApiTest {
         // 入参；模型、请求信息
         ChatCompletionRequest request = new ChatCompletionRequest();
         request.setModel(Model.CHATGLM_LITE); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
+        request.setIncremental(false);
         request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
             private static final long serialVersionUID = -7988151926241837899L;
 
             {
+                add(ChatCompletionRequest.Prompt.builder()
+                        .role(Role.user.getCode())
+                        .content("1+2")
+                        .build());
+
+                add(ChatCompletionRequest.Prompt.builder()
+                        .role(Role.user.getCode())
+                        .content("Okay")
+                        .build());
+
                 /* system 和 user 为一组出现。如果有参数类型为 system 则 system + user 一组一起传递。*/
                 add(ChatCompletionRequest.Prompt.builder()
                         .role(Role.system.getCode())
-                        .content("请问有什么需要帮助的吗")
+                        .content("1+1=2")
                         .build());
 
                 add(ChatCompletionRequest.Prompt.builder()
@@ -67,12 +78,8 @@ public class ApiTest {
 
                 add(ChatCompletionRequest.Prompt.builder()
                         .role(Role.user.getCode())
-                        .content("你是一个专业的互联网文章作者，擅长互联网技术介绍、互联网商业、技术应用等方面的写作。\n" +
-                                "接下来你要根据用户给你的主题，拓展生成用户想要的文字内容，内容可能是一篇文章、一个开头、一段介绍文字、文章总结、文章结尾等等。\n" +
-                                "要求语言通俗易懂、幽默有趣，并且要以第一人称的口吻。")
+                        .content("1+2")
                         .build());
-
-
 
             }
         });
