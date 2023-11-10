@@ -17,7 +17,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author 小傅哥，微信：fustack
@@ -107,6 +109,32 @@ public class ApiTest {
         // 等待
         new CountDownLatch(1).await();
     }
+
+    /**
+     * 同步请求
+     */
+    @Test
+    public void test_completions_future() throws ExecutionException, InterruptedException {
+        // 入参；模型、请求信息
+        ChatCompletionRequest request = new ChatCompletionRequest();
+        request.setModel(Model.CHATGLM_LITE); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
+        request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
+            private static final long serialVersionUID = -7988151926241837899L;
+
+            {
+                add(ChatCompletionRequest.Prompt.builder()
+                        .role(Role.user.getCode())
+                        .content("写个java冒泡排序")
+                        .build());
+            }
+        });
+
+        CompletableFuture<String> future = openAiSession.completions(request);
+        String response = future.get();
+
+        log.info("测试结果：{}", response);
+    }
+
 
     @Test
     public void test_curl() {
