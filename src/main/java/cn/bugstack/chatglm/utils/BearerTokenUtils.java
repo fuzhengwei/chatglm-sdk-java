@@ -26,7 +26,7 @@ public class BearerTokenUtils {
 
     // 缓存服务
     public static Cache<String, String> cache = CacheBuilder.newBuilder()
-            .expireAfterWrite(expireMillis - (60 * 1000L), TimeUnit.SECONDS)
+            .expireAfterWrite(expireMillis - (60 * 1000L), TimeUnit.MILLISECONDS)
             .build();
 
     /**
