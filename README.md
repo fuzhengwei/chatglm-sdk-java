@@ -20,13 +20,13 @@
 
 - 申请ApiKey：[https://open.bigmodel.cn/usercenter/apikeys](https://open.bigmodel.cn/usercenter/apikeys) - 注册申请开通，即可获得 ApiKey
 - 运行环境：JDK 1.8+
-- maven pom - `暂时测试阶段，未推送到Maven中央仓库，需要下载代码本地 install 后使用`
+- maven pom - `已发布到Maven仓库`
 
 ```pom
 <dependency>
     <groupId>cn.bugstack</groupId>
     <artifactId>chatglm-sdk-java</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 </dependency>
 ```
 
