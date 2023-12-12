@@ -39,6 +39,23 @@
 ### 2.1 代码执行
 
 ```java
+import cn.bugstack.chatglm.model.*;
+import cn.bugstack.chatglm.session.Configuration;
+import cn.bugstack.chatglm.session.OpenAiSession;
+import cn.bugstack.chatglm.session.OpenAiSessionFactory;
+import cn.bugstack.chatglm.session.defaults.DefaultOpenAiSessionFactory;
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.extern.slf4j.Slf4j;
+import okhttp3.sse.EventSource;
+import okhttp3.sse.EventSourceListener;
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+
 @Slf4j
 public class ApiTest {
 
@@ -97,7 +114,6 @@ public class ApiTest {
         // 等待
         new CountDownLatch(1).await();
     }
-
 }
 ```
 
