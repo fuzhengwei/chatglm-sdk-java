@@ -127,7 +127,7 @@ public class ApiTest {
             {
                 add(ChatCompletionRequest.Prompt.builder()
                         .role(Role.user.getCode())
-                        .content("写个java冒泡排序")
+                        .content("1+1")
                         .build());
             }
         });
@@ -152,7 +152,7 @@ public class ApiTest {
             {
                 add(ChatCompletionRequest.Prompt.builder()
                         .role(Role.user.getCode())
-                        .content("写个java冒泡排序")
+                        .content("1+1")
                         .build());
             }
         });
