@@ -114,6 +114,55 @@ public class ApiTest {
         // 等待
         new CountDownLatch(1).await();
     }
+
+    /**
+     * 同步请求，future 模型，通过对流式的改造提供同步
+     */
+    @Test
+    public void test_completions_future() throws ExecutionException, InterruptedException {
+        // 入参；模型、请求信息
+        ChatCompletionRequest request = new ChatCompletionRequest();
+        request.setModel(Model.CHATGLM_TURBO); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
+        request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
+            private static final long serialVersionUID = -7988151926241837899L;
+
+            {
+                add(ChatCompletionRequest.Prompt.builder()
+                        .role(Role.user.getCode())
+                        .content("写个java冒泡排序")
+                        .build());
+            }
+        });
+
+        CompletableFuture<String> future = openAiSession.completions(request);
+        String response = future.get();
+
+        log.info("测试结果：{}", response);
+    }
+
+    /**
+     * 同步请求，官网自带的同步方法
+     */
+    @Test
+    public void test_completions_sync() throws IOException {
+        // 入参；模型、请求信息
+        ChatCompletionRequest request = new ChatCompletionRequest();
+        request.setModel(Model.CHATGLM_TURBO); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
+        request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
+            private static final long serialVersionUID = -7988151926241837899L;
+
+            {
+                add(ChatCompletionRequest.Prompt.builder()
+                        .role(Role.user.getCode())
+                        .content("写个java冒泡排序")
+                        .build());
+            }
+        });
+
+        ChatCompletionSyncResponse response = openAiSession.completionsSync(request);
+
+        log.info("测试结果：{}", JSON.toJSONString(response));
+    }
 }
 ```
 
