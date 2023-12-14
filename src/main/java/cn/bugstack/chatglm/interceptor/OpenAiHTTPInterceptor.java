@@ -30,14 +30,13 @@ public class OpenAiHTTPInterceptor implements Interceptor {
     public @NotNull Response intercept(Chain chain) throws IOException {
         // 1. 获取原始 Request
         Request original = chain.request();
-
         // 2. 构建请求
         Request request = original.newBuilder()
                 .url(original.url())
                 .header("Authorization", "Bearer " + BearerTokenUtils.getToken(configuration.getApiKey(), configuration.getApiSecret()))
                 .header("Content-Type", Configuration.JSON_CONTENT_TYPE)
                 .header("User-Agent", Configuration.DEFAULT_USER_AGENT)
-                .header("Accept", Configuration.SSE_CONTENT_TYPE)
+                .header("Accept", null != original.header("Accept") ? original.header("Accept") : Configuration.SSE_CONTENT_TYPE)
                 .method(original.method(), original.body())
                 .build();
 
