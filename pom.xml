@@ -9,8 +9,8 @@
     <version>1.0</version>
 
     <name>chatglm-sdk-java</name>
-    <description>OpenAI Java SDK, ZhiPuAi ChatGLM Java SDK .</description>
-    <url>https://open.bigmodel.cn/</url>
+    <description>OpenAI Java SDK, ZhiPuAi ChatGLM Java SDK . Copyright © 2023 bugstack虫洞栈 All rights reserved. 版权所有（C）小傅哥 https://github.com/fuzhengwei/chatglm-sdk-java</description>
+    <url>https://github.com/fuzhengwei/chatglm-sdk-java</url>
 
     <licenses>
         <license>
