@@ -59,8 +59,6 @@ public void test_OpenAiSessionFactory() {
 
 #### 2.1.1 流式对话 - 兼容旧版模式运行
 
-<details><summary><a>👉查看代码</a></summary></br>
-
 ```java
 /**
  * 流式对话；
@@ -121,8 +119,6 @@ public void test_completions() throws Exception {
     countDownLatch.await();
 }
 ```
-
-</details>
 
 #### 2.1.2 流式对话 - 新版调用
 
