@@ -20,6 +20,7 @@
 
 - 申请ApiKey：[https://open.bigmodel.cn/usercenter/apikeys](https://open.bigmodel.cn/usercenter/apikeys) - 注册申请开通，即可获得 ApiKey
 - 运行环境：JDK 1.8+
+- 支持模型：chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro、chatglm_turbo、glm-3-turbo、glm-4、glm-4v、cogview-3
 - maven pom - `已发布到Maven仓库`
 
 ```pom
