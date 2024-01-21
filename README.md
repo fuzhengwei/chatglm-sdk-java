@@ -378,6 +378,7 @@ curl -X POST \
 ```
 
 - 运行后你会获得一个 Token 信息，之后在 curl.sh 中替换  Authorization: Bearer 后面的值。就可以执行测试了。
+- [curl-cogview-3.sh](https://github.com/fuzhengwei/chatglm-sdk-java/blob/master/docs/curl/curl-cogview-3.sh) | [curl-glm-3-turbo.sh](https://github.com/fuzhengwei/chatglm-sdk-java/blob/master/docs/curl/curl-glm-3-turbo.sh) | [curl-glm-4.sh](https://github.com/fuzhengwei/chatglm-sdk-java/blob/master/docs/curl/curl-glm-4.sh) | [curl-glm-4v.sh](https://github.com/fuzhengwei/chatglm-sdk-java/blob/master/docs/curl/curl-glm-4v.sh)
 
 ## 3. 程序接入
 
