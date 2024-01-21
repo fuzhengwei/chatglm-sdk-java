@@ -26,7 +26,7 @@
 <dependency>
     <groupId>cn.bugstack</groupId>
     <artifactId>chatglm-sdk-java</artifactId>
-    <version>1.1</version>
+    <version>2.0</version>
 </dependency>
 ```
 
@@ -39,149 +39,303 @@
 ### 2.1 代码执行
 
 ```java
-/**
- * @author 小傅哥，微信：fustack
- * @description 在官网申请 ApiSecretKey <a href="https://open.bigmodel.cn/usercenter/apikeys">ApiSecretKey</a>
- * @github https://github.com/fuzhengwei
- * @Copyright 公众号：bugstack虫洞栈 | 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
- */
-@Slf4j
-public class ApiTest {
+private OpenAiSession openAiSession;
 
-    private OpenAiSession openAiSession;
-
-    @Before
-    public void test_OpenAiSessionFactory() {
-        // 1. 配置文件
-        Configuration configuration = new Configuration();
-        configuration.setApiHost("https://open.bigmodel.cn/");
-        configuration.setApiSecretKey("d570f7c5d289cdac2abdfdc562e39f3f.trqz1dH8ZK6ED7Pg");
-        configuration.setLevel(HttpLoggingInterceptor.Level.BODY);
-        // 2. 会话工厂
-        OpenAiSessionFactory factory = new DefaultOpenAiSessionFactory(configuration);
-        // 3. 开启会话
-        this.openAiSession = factory.openSession();
-    }
-
-    /**
-     * 流式对话 & 关联上下文
-     */
-    @Test
-    public void test_completions() throws JsonProcessingException, InterruptedException {
-        // 入参；模型、请求信息
-        ChatCompletionRequest request = new ChatCompletionRequest();
-        request.setModel(Model.CHATGLM_TURBO); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
-        request.setIncremental(false);
-        request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
-            private static final long serialVersionUID = -7988151926241837899L;
-
-            {
-                add(ChatCompletionRequest.Prompt.builder()
-                        .role(Role.user.getCode())
-                        .content("1+2")
-                        .build());
-
-                add(ChatCompletionRequest.Prompt.builder()
-                        .role(Role.user.getCode())
-                        .content("Okay")
-                        .build());
-
-                /* system 和 user 为一组出现。如果有参数类型为 system 则 system + user 一组一起传递。*/
-                add(ChatCompletionRequest.Prompt.builder()
-                        .role(Role.system.getCode())
-                        .content("1+1=2")
-                        .build());
-
-                add(ChatCompletionRequest.Prompt.builder()
-                        .role(Role.user.getCode())
-                        .content("Okay")
-                        .build());
-
-                add(ChatCompletionRequest.Prompt.builder()
-                        .role(Role.user.getCode())
-                        .content("1+2")
-                        .build());
-
-            }
-        });
-
-        // 请求
-        openAiSession.completions(request, new EventSourceListener() {
-            @Override
-            public void onEvent(EventSource eventSource, @Nullable String id, @Nullable String type, String data) {
-                ChatCompletionResponse response = JSON.parseObject(data, ChatCompletionResponse.class);
-                log.info("测试结果 onEvent：{}", response.getData());
-                // type 消息类型，add 增量，finish 结束，error 错误，interrupted 中断
-                if (EventType.finish.getCode().equals(type)) {
-                    ChatCompletionResponse.Meta meta = JSON.parseObject(response.getMeta(), ChatCompletionResponse.Meta.class);
-                    log.info("[输出结束] Tokens {}", JSON.toJSONString(meta));
-                }
-            }
-
-            @Override
-            public void onClosed(EventSource eventSource) {
-                log.info("对话完成");
-            }
-
-        });
-
-        // 等待
-        new CountDownLatch(1).await();
-    }
-
-    /**
-     * 同步请求
-     */
-    @Test
-    public void test_completions_future() throws ExecutionException, InterruptedException {
-        // 入参；模型、请求信息
-        ChatCompletionRequest request = new ChatCompletionRequest();
-        request.setModel(Model.CHATGLM_TURBO); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
-        request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
-            private static final long serialVersionUID = -7988151926241837899L;
-
-            {
-                add(ChatCompletionRequest.Prompt.builder()
-                        .role(Role.user.getCode())
-                        .content("1+1")
-                        .build());
-            }
-        });
-
-        CompletableFuture<String> future = openAiSession.completions(request);
-        String response = future.get();
-
-        log.info("测试结果：{}", response);
-    }
-
-    /**
-     * 同步请求
-     */
-    @Test
-    public void test_completions_sync() throws IOException {
-        // 入参；模型、请求信息
-        ChatCompletionRequest request = new ChatCompletionRequest();
-        request.setModel(Model.CHATGLM_TURBO); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
-        request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
-            private static final long serialVersionUID = -7988151926241837899L;
-
-            {
-                add(ChatCompletionRequest.Prompt.builder()
-                        .role(Role.user.getCode())
-                        .content("1+1")
-                        .build());
-            }
-        });
-
-        ChatCompletionSyncResponse response = openAiSession.completionsSync(request);
-
-        log.info("测试结果：{}", JSON.toJSONString(response));
-    }
-
+@Before
+public void test_OpenAiSessionFactory() {
+    // 1. 配置文件
+    Configuration configuration = new Configuration();
+    configuration.setApiHost("https://open.bigmodel.cn/");
+    configuration.setApiSecretKey("62ddec38b1d0b9a7b0fddaf271e6ed90.HpD0SUBUlvqd05ey");
+    configuration.setLevel(HttpLoggingInterceptor.Level.BODY);
+    // 2. 会话工厂
+    OpenAiSessionFactory factory = new DefaultOpenAiSessionFactory(configuration);
+    // 3. 开启会话
+    this.openAiSession = factory.openSession();
 }
 ```
 
-- 这是一个单元测试类，也是最常使用的流式对话模式。
+- 测试前申请你的 ApiKey 填写到 setApiSecretKey 中使用。
+
+#### 2.1.1 流式对话 - 兼容旧版模式运行
+
+<details><summary><a>👉查看代码</a></summary></br>
+
+```java
+/**
+ * 流式对话；
+ * 1. 默认 isCompatible = true 会兼容新旧版数据格式
+ * 2. GLM_3_5_TURBO、GLM_4 支持联网等插件
+ */
+@Test
+public void test_completions() throws Exception {
+    CountDownLatch countDownLatch = new CountDownLatch(1);
+    // 入参；模型、请求信息
+    ChatCompletionRequest request = new ChatCompletionRequest();
+    request.setModel(Model.GLM_3_5_TURBO); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
+    request.setIncremental(false);
+    request.setIsCompatible(true); // 是否对返回结果数据做兼容，24年1月发布的 GLM_3_5_TURBO、GLM_4 模型，与之前的模型在返回结果上有差异。开启 true 可以做兼容。
+    // 24年1月发布的 glm-3-turbo、glm-4 支持函数、知识库、联网功能
+    request.setTools(new ArrayList<ChatCompletionRequest.Tool>() {
+        private static final long serialVersionUID = -7988151926241837899L;
+        {
+            add(ChatCompletionRequest.Tool.builder()
+                    .type(ChatCompletionRequest.Tool.Type.web_search)
+                    .webSearch(ChatCompletionRequest.Tool.WebSearch.builder().enable(true).searchQuery("小傅哥").build())
+                    .build());
+        }
+    });
+    request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
+        private static final long serialVersionUID = -7988151926241837899L;
+        {
+            add(ChatCompletionRequest.Prompt.builder()
+                    .role(Role.user.getCode())
+                    .content("小傅哥的是谁")
+                    .build());
+        }
+    });
+    // 请求
+    openAiSession.completions(request, new EventSourceListener() {
+        @Override
+        public void onEvent(EventSource eventSource, @Nullable String id, @Nullable String type, String data) {
+            ChatCompletionResponse response = JSON.parseObject(data, ChatCompletionResponse.class);
+            log.info("测试结果 onEvent：{}", response.getData());
+            // type 消息类型，add 增量，finish 结束，error 错误，interrupted 中断
+            if (EventType.finish.getCode().equals(type)) {
+                ChatCompletionResponse.Meta meta = JSON.parseObject(response.getMeta(), ChatCompletionResponse.Meta.class);
+                log.info("[输出结束] Tokens {}", JSON.toJSONString(meta));
+            }
+        }
+        @Override
+        public void onClosed(EventSource eventSource) {
+            log.info("对话完成");
+            countDownLatch.countDown();
+        }
+        @Override
+        public void onFailure(EventSource eventSource, @Nullable Throwable t, @Nullable Response response) {
+            log.info("对话异常");
+            countDownLatch.countDown();
+        }
+    });
+    // 等待
+    countDownLatch.await();
+}
+```
+
+</details>
+
+#### 2.1.2 流式对话 - 新版调用
+
+<details><summary><a>👉查看代码</a></summary></br>
+
+```java
+/**
+ * 流式对话；
+ * 1. 与 test_completions 测试类相比，只是设置 isCompatible = false 这样就是使用了新的数据结构。onEvent 处理接收数据有差异
+ * 2. 不兼容旧版格式的话，仅支持 GLM_3_5_TURBO、GLM_4 其他模型会有解析错误
+ */
+@Test
+public void test_completions_new() throws Exception {
+    CountDownLatch countDownLatch = new CountDownLatch(1);
+    // 入参；模型、请求信息
+    ChatCompletionRequest request = new ChatCompletionRequest();
+    request.setModel(Model.GLM_3_5_TURBO); // GLM_3_5_TURBO、GLM_4
+    request.setIsCompatible(false);
+    // 24年1月发布的 glm-3-turbo、glm-4 支持函数、知识库、联网功能
+    request.setTools(new ArrayList<ChatCompletionRequest.Tool>() {
+        private static final long serialVersionUID = -7988151926241837899L;
+        {
+            add(ChatCompletionRequest.Tool.builder()
+                    .type(ChatCompletionRequest.Tool.Type.web_search)
+                    .webSearch(ChatCompletionRequest.Tool.WebSearch.builder().enable(true).searchQuery("小傅哥").build())
+                    .build());
+        }
+    });
+    request.setMessages(new ArrayList<ChatCompletionRequest.Prompt>() {
+        private static final long serialVersionUID = -7988151926241837899L;
+        {
+            add(ChatCompletionRequest.Prompt.builder()
+                    .role(Role.user.getCode())
+                    .content("小傅哥的是谁")
+                    .build());
+        }
+    });
+    // 请求
+    openAiSession.completions(request, new EventSourceListener() {
+        @Override
+        public void onEvent(EventSource eventSource, @Nullable String id, @Nullable String type, String data) {
+            if ("[DONE]".equals(data)) {
+                log.info("[输出结束] Tokens {}", JSON.toJSONString(data));
+                return;
+            }
+            ChatCompletionResponse response = JSON.parseObject(data, ChatCompletionResponse.class);
+            log.info("测试结果：{}", JSON.toJSONString(response));
+        }
+        @Override
+        public void onClosed(EventSource eventSource) {
+            log.info("对话完成");
+            countDownLatch.countDown();
+        }
+        @Override
+        public void onFailure(EventSource eventSource, @Nullable Throwable t, @Nullable Response response) {
+            log.error("对话失败", t);
+            countDownLatch.countDown();
+        }
+    });
+    // 等待
+    countDownLatch.await();
+}
+```
+
+</details>
+
+#### 2.1.3 流式对话 - 多模态图片识别 4v（vision）
+
+<details><summary><a>👉查看代码</a></summary></br>
+
+```java
+@Test
+public void test_completions_4v() throws Exception {
+    CountDownLatch countDownLatch = new CountDownLatch(1);
+    // 入参；模型、请求信息
+    ChatCompletionRequest request = new ChatCompletionRequest();
+    request.setModel(Model.GLM_4V); // GLM_3_5_TURBO、GLM_4
+    request.setStream(true);
+    request.setMessages(new ArrayList<ChatCompletionRequest.Prompt>() {
+        private static final long serialVersionUID = -7988151926241837899L;
+        {
+            // content 字符串格式
+            add(ChatCompletionRequest.Prompt.builder()
+                    .role(Role.user.getCode())
+                    .content("这个图片写了什么")
+                    .build());
+            // content 对象格式
+            add(ChatCompletionRequest.Prompt.builder()
+                    .role(Role.user.getCode())
+                    .content(ChatCompletionRequest.Prompt.Content.builder()
+                            .type(ChatCompletionRequest.Prompt.Content.Type.text.getCode())
+                            .text("这是什么图片")
+                            .build())
+                    .build());
+            // content 对象格式，上传图片；图片支持url、basde64
+            add(ChatCompletionRequest.Prompt.builder()
+                    .role(Role.user.getCode())
+                    .content(ChatCompletionRequest.Prompt.Content.builder()
+                            .type(ChatCompletionRequest.Prompt.Content.Type.image_url.getCode())
+                            .imageUrl(ChatCompletionRequest.Prompt.Content.ImageUrl.builder().url("https://bugstack.cn/images/article/project/chatgpt/chatgpt-extra-231011-01.png").build())
+                            .build())
+                    .build());
+        }
+    });
+    openAiSession.completions(request, new EventSourceListener() {
+        @Override
+        public void onEvent(EventSource eventSource, @Nullable String id, @Nullable String type, String data) {
+            if ("[DONE]".equals(data)) {
+                log.info("[输出结束] Tokens {}", JSON.toJSONString(data));
+                return;
+            }
+            ChatCompletionResponse response = JSON.parseObject(data, ChatCompletionResponse.class);
+            log.info("测试结果：{}", JSON.toJSONString(response));
+        }
+        @Override
+        public void onClosed(EventSource eventSource) {
+            log.info("对话完成");
+            countDownLatch.countDown();
+        }
+        @Override
+        public void onFailure(EventSource eventSource, @Nullable Throwable t, @Nullable Response response) {
+            log.error("对话失败", t);
+            countDownLatch.countDown();
+        }
+    });
+    // 等待
+    countDownLatch.await();
+}
+```
+
+</details>
+
+#### 2.1.4 同步请求 - future 模式
+
+<details><summary><a>👉查看代码</a></summary></br>
+
+```java
+@Test
+public void test_completions_future() throws Exception {
+    // 入参；模型、请求信息
+    ChatCompletionRequest request = new ChatCompletionRequest();
+    request.setModel(Model.CHATGLM_TURBO); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
+    request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
+        private static final long serialVersionUID = -7988151926241837899L;
+        {
+            add(ChatCompletionRequest.Prompt.builder()
+                    .role(Role.user.getCode())
+                    .content("1+1")
+                    .build());
+        }
+    });
+    CompletableFuture<String> future = openAiSession.completions(request);
+    String response = future.get();
+    log.info("测试结果：{}", response);
+}
+```
+
+</details>
+
+
+#### 2.1.5 同步请求 - 普通模式
+
+<details><summary><a>👉查看代码</a></summary></br>
+
+```java
+@Test
+public void test_completions_sync() throws Exception {
+    // 入参；模型、请求信息
+    ChatCompletionRequest request = new ChatCompletionRequest();
+    request.setModel(Model.GLM_4V); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
+    request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
+        private static final long serialVersionUID = -7988151926241837899L;
+        {
+            add(ChatCompletionRequest.Prompt.builder()
+                    .role(Role.user.getCode())
+                    .content("小傅哥是谁")
+                    .build());
+        }
+    });
+    // 24年1月发布的 glm-3-turbo、glm-4 支持函数、知识库、联网功能
+    request.setTools(new ArrayList<ChatCompletionRequest.Tool>() {
+        private static final long serialVersionUID = -7988151926241837899L;
+        {
+            add(ChatCompletionRequest.Tool.builder()
+                    .type(ChatCompletionRequest.Tool.Type.web_search)
+                    .webSearch(ChatCompletionRequest.Tool.WebSearch.builder().enable(true).searchQuery("小傅哥").build())
+                    .build());
+        }
+    });
+    ChatCompletionSyncResponse response = openAiSession.completionsSync(request);
+    log.info("测试结果：{}", JSON.toJSONString(response));
+}
+```
+
+</details>
+
+#### 2.1.6 文生图
+
+<details><summary><a>👉查看代码</a></summary></br>
+
+```java
+@Test
+public void test_genImages() throws Exception {
+    ImageCompletionRequest request = new ImageCompletionRequest();
+    request.setModel(Model.COGVIEW_3);
+    request.setPrompt("画个小狗");
+    ImageCompletionResponse response = openAiSession.genImages(request);
+    log.info("测试结果：{}", JSON.toJSONString(response));
+}
+```
+
+</details>
+
 
 ### 2.2 脚本测试
 
