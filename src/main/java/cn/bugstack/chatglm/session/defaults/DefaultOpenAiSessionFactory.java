@@ -1,7 +1,9 @@
 package cn.bugstack.chatglm.session.defaults;
 
 import cn.bugstack.chatglm.IOpenAiApi;
+import cn.bugstack.chatglm.executor.Executor;
 import cn.bugstack.chatglm.interceptor.OpenAiHTTPInterceptor;
+import cn.bugstack.chatglm.model.Model;
 import cn.bugstack.chatglm.session.Configuration;
 import cn.bugstack.chatglm.session.OpenAiSession;
 import cn.bugstack.chatglm.session.OpenAiSessionFactory;
@@ -11,12 +13,13 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author 小傅哥，微信：fustack
  * @description 会话工厂
- * @github https://github.com/fuzhengwei
+ * @github https://github.com/fuzhengwei/chatglm-sdk-java
  * @Copyright 公众号：bugstack虫洞栈 | 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
  */
 public class DefaultOpenAiSessionFactory implements OpenAiSessionFactory {
@@ -55,7 +58,10 @@ public class DefaultOpenAiSessionFactory implements OpenAiSessionFactory {
 
         configuration.setOpenAiApi(openAiApi);
 
-        return new DefaultOpenAiSession(configuration);
+        // 4. 实例化执行器
+        HashMap<Model, Executor> executorGroup = configuration.newExecutorGroup();
+
+        return new DefaultOpenAiSession(configuration, executorGroup);
     }
 
 }

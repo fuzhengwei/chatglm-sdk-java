@@ -6,7 +6,7 @@
 
     <groupId>cn.bugstack</groupId>
     <artifactId>chatglm-sdk-java</artifactId>
-    <version>1.1</version>
+    <version>2.0</version>
 
     <name>chatglm-sdk-java</name>
     <description>OpenAI Java SDK, ZhiPuAi ChatGLM Java SDK . Copyright © 2023 bugstack虫洞栈 All rights reserved. 版权所有（C）小傅哥 https://github.com/fuzhengwei/chatglm-sdk-java</description>
@@ -134,6 +134,18 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.10</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * @author 小傅哥，微信：fustack
  * @description 接口拦截器
- * @github https://github.com/fuzhengwei
+ * @github https://github.com/fuzhengwei/chatglm-sdk-java
  * @Copyright 公众号：bugstack虫洞栈 | 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
  */
 public class OpenAiHTTPInterceptor implements Interceptor {
@@ -36,7 +36,7 @@ public class OpenAiHTTPInterceptor implements Interceptor {
                 .header("Authorization", "Bearer " + BearerTokenUtils.getToken(configuration.getApiKey(), configuration.getApiSecret()))
                 .header("Content-Type", Configuration.JSON_CONTENT_TYPE)
                 .header("User-Agent", Configuration.DEFAULT_USER_AGENT)
-                .header("Accept", null != original.header("Accept") ? original.header("Accept") : Configuration.SSE_CONTENT_TYPE)
+//                .header("Accept", null != original.header("Accept") ? original.header("Accept") : Configuration.SSE_CONTENT_TYPE)
                 .method(original.method(), original.body())
                 .build();
 
