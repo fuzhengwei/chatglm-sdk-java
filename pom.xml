@@ -6,7 +6,7 @@
 
     <groupId>cn.bugstack</groupId>
     <artifactId>chatglm-sdk-java</artifactId>
-    <version>2.0</version>
+    <version>2.1</version>
 
     <name>chatglm-sdk-java</name>
     <description>OpenAI Java SDK, ZhiPuAi ChatGLM Java SDK . Copyright © 2023 bugstack虫洞栈 All rights reserved. 版权所有（C）小傅哥 https://github.com/fuzhengwei/chatglm-sdk-java</description>
