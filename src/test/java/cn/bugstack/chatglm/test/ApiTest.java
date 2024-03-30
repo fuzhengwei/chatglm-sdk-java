@@ -40,7 +40,7 @@ public class ApiTest {
         // 1. 配置文件
         Configuration configuration = new Configuration();
         configuration.setApiHost("https://open.bigmodel.cn/");
-        configuration.setApiSecretKey("62ddec38b1d0b9a7b0fddaf271e6ed90.HpD0SUBUlvqd05ey");
+        configuration.setApiSecretKey("74e0b7fff9a578e2137300bcd58ae062.q0ABClJJS50rHQnn");
         configuration.setLevel(HttpLoggingInterceptor.Level.BODY);
         // 2. 会话工厂
         OpenAiSessionFactory factory = new DefaultOpenAiSessionFactory(configuration);
@@ -125,7 +125,7 @@ public class ApiTest {
 
         // 入参；模型、请求信息
         ChatCompletionRequest request = new ChatCompletionRequest();
-        request.setModel(Model.GLM_3_5_TURBO); // GLM_3_5_TURBO、GLM_4
+        request.setModel(Model.GLM_4); // GLM_3_5_TURBO、GLM_4
         request.setIsCompatible(false);
         // 24年1月发布的 glm-3-turbo、glm-4 支持函数、知识库、联网功能
         request.setTools(new ArrayList<ChatCompletionRequest.Tool>() {
@@ -280,7 +280,7 @@ public class ApiTest {
      * 同步请求
      */
     @Test
-    public void test_completions_sync() throws Exception {
+    public void test_completions_sync_01() throws Exception {
         // 入参；模型、请求信息
         ChatCompletionRequest request = new ChatCompletionRequest();
         request.setModel(Model.GLM_3_5_TURBO); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
@@ -310,6 +310,28 @@ public class ApiTest {
         ChatCompletionSyncResponse response = openAiSession.completionsSync(request);
 
         log.info("测试结果：{}", JSON.toJSONString(response));
+    }
+
+    @Test
+    public void test_completions_sync_02() throws Exception {
+        // 入参；模型、请求信息
+        ChatCompletionRequest request = new ChatCompletionRequest();
+        request.setModel(Model.GLM_3_5_TURBO); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
+        request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
+            private static final long serialVersionUID = -7988151926241837899L;
+
+            {
+                add(ChatCompletionRequest.Prompt.builder()
+                        .role(Role.user.getCode())
+                        .content("1+1")
+                        .build());
+            }
+        });
+
+        ChatCompletionSyncResponse response = openAiSession.completionsSync(request);
+
+        log.info("测试结果：{}", JSON.toJSONString(response));
+        System.out.println(response.getChoices().get(0).getMessage().getContent());
     }
 
     @Test
