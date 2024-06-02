@@ -70,7 +70,7 @@ public class ChatCompletionRequest {
      * 24年1月发布的 GLM_3_5_TURBO、GLM_4 模型时新增
      */
     @JsonProperty("max_tokens")
-    private Integer maxTokens = 2048;
+    private Integer maxTokens = 1024;
     /**
      * 模型在遇到stop所制定的字符时将停止生成，目前仅支持单个停止词，格式为["stop_word1"]
      * 24年1月发布的 GLM_3_5_TURBO、GLM_4 模型时新增

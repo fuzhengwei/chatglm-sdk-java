@@ -1,6 +1,6 @@
 # url 支持base64和图片地址；https://bugstack.cn/images/article/project/chatgpt/chatgpt-extra-231011-01.png
 curl -X POST \
-        -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInNpZ25fdHlwZSI6IlNJR04ifQ.eyJhcGlfa2V5IjoiNjJkZGVjMzhiMWQwYjlhN2IwZmRkYWYyNzFlNmVkOTAiLCJleHAiOjE3MDU4MDgxNDEwNDUsInRpbWVzdGFtcCI6MTcwNTgwNjM0MTA0NX0.o7kogP0ZIFWVEEhplGaW1zBz16B1UbG2NIEqb7ZVflU" \
+        -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInNpZ25fdHlwZSI6IlNJR04ifQ.eyJhcGlfa2V5IjoiMzk1ODBlMzRlMTc1MDE5YzIzMGZkZDUxOTgxN2IzODEiLCJleHAiOjE3MTczNzE2MzE4MDgsInRpbWVzdGFtcCI6MTcxNzM2OTgzMTgwOH0.2lk57oALzFxx2eAo-dKojKnVpn_MvJ8VJ4NQWTMYPHQ" \
         -H "Content-Type: application/json" \
         -H "User-Agent: Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)" \
         -d '{

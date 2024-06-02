@@ -40,7 +40,7 @@ public class ApiTest {
         // 1. 配置文件
         Configuration configuration = new Configuration();
         configuration.setApiHost("https://open.bigmodel.cn/");
-        configuration.setApiSecretKey("74e0b7fff9a578e2137300bcd58ae062.q0ABClJJS50rHQnn");
+        configuration.setApiSecretKey("39580e34e175019c230fdd519817b381.*****");
         configuration.setLevel(HttpLoggingInterceptor.Level.BODY);
         // 2. 会话工厂
         OpenAiSessionFactory factory = new DefaultOpenAiSessionFactory(configuration);
@@ -125,7 +125,7 @@ public class ApiTest {
 
         // 入参；模型、请求信息
         ChatCompletionRequest request = new ChatCompletionRequest();
-        request.setModel(Model.GLM_4); // GLM_3_5_TURBO、GLM_4
+        request.setModel(Model.GLM_4V); // GLM_3_5_TURBO、GLM_4
         request.setIsCompatible(false);
         // 24年1月发布的 glm-3-turbo、glm-4 支持函数、知识库、联网功能
         request.setTools(new ArrayList<ChatCompletionRequest.Tool>() {
@@ -196,10 +196,10 @@ public class ApiTest {
 
             {
                 // content 字符串格式
-                add(ChatCompletionRequest.Prompt.builder()
-                        .role(Role.user.getCode())
-                        .content("这个图片写了什么")
-                        .build());
+//                add(ChatCompletionRequest.Prompt.builder()
+//                        .role(Role.user.getCode())
+//                        .content("这个图片写了什么")
+//                        .build());
 
                 // content 对象格式
                 add(ChatCompletionRequest.Prompt.builder()
@@ -348,7 +348,7 @@ public class ApiTest {
         // 1. 配置文件
         Configuration configuration = new Configuration();
         configuration.setApiHost("https://open.bigmodel.cn/");
-        configuration.setApiSecretKey("62ddec38b1d0b9a7b0fddaf271e6ed90.HpD0SUBUlvqd05ey");
+        configuration.setApiSecretKey("39580e34e175019c230fdd519817b381.*****");
 
         // 2. 获取Token
         String token = BearerTokenUtils.getToken(configuration.getApiKey(), configuration.getApiSecret());
