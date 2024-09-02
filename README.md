@@ -432,7 +432,7 @@ chatglm:
   sdk:
     config:
       # 状态；true = 开启、false 关闭
-      enabled: false
+      enable: false
       # 官网地址 
       api-host: https://open.bigmodel.cn/
       # 官网申请 https://open.bigmodel.cn/usercenter/apikeys
