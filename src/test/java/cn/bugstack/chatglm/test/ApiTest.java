@@ -40,7 +40,7 @@ public class ApiTest {
         // 1. 配置文件
         Configuration configuration = new Configuration();
         configuration.setApiHost("https://open.bigmodel.cn/");
-        configuration.setApiSecretKey("39580e34e175019c230fdd519817b381.*****");
+        configuration.setApiSecretKey("764d6c3f7231f0dcfb2daba77215f112.n23GxnTrlVlKBDvH");
         configuration.setLevel(HttpLoggingInterceptor.Level.BODY);
         // 2. 会话工厂
         OpenAiSessionFactory factory = new DefaultOpenAiSessionFactory(configuration);
@@ -177,6 +177,56 @@ public class ApiTest {
 
         // 等待
         countDownLatch.await();
+    }
+
+    @Test
+    public void test_completions_4() throws Exception {
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        // 入参；模型、请求信息
+        ChatCompletionRequest request = new ChatCompletionRequest();
+        request.setModel(Model.GLM_4_Flash); // GLM_4_Flash 等模型校验
+        request.setStream(true);
+
+        request.setMessages(new ArrayList<ChatCompletionRequest.Prompt>() {
+            private static final long serialVersionUID = -7988151926241837899L;
+
+            {
+                // content 字符串格式
+                add(ChatCompletionRequest.Prompt.builder()
+                        .role(Role.user.getCode())
+                        .content("1+1")
+                        .build());
+            }
+        });
+
+        openAiSession.completions(request, new EventSourceListener() {
+            @Override
+            public void onEvent(EventSource eventSource, @Nullable String id, @Nullable String type, String data) {
+                if ("[DONE]".equals(data)) {
+                    log.info("[输出结束] Tokens {}", JSON.toJSONString(data));
+                    return;
+                }
+
+                ChatCompletionResponse response = JSON.parseObject(data, ChatCompletionResponse.class);
+                log.info("测试结果：{}", JSON.toJSONString(response));
+            }
+
+            @Override
+            public void onClosed(EventSource eventSource) {
+                log.info("对话完成");
+                countDownLatch.countDown();
+            }
+
+            @Override
+            public void onFailure(EventSource eventSource, @Nullable Throwable t, @Nullable Response response) {
+                log.error("对话失败", t);
+                countDownLatch.countDown();
+            }
+        });
+
+        // 等待
+        countDownLatch.await();
+
     }
 
     /**
