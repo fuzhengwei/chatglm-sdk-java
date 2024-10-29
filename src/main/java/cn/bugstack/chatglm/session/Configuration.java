@@ -98,6 +98,14 @@ public class Configuration {
         this.executorGroup.put(Model.GLM_3_5_TURBO, glmExecutor);
         this.executorGroup.put(Model.GLM_4, glmExecutor);
         this.executorGroup.put(Model.GLM_4V, glmExecutor);
+        this.executorGroup.put(Model.GLM_4_Plus, glmExecutor);
+        this.executorGroup.put(Model.GLM_4_0520, glmExecutor);
+        this.executorGroup.put(Model.GLM_4_Lng, glmExecutor);
+        this.executorGroup.put(Model.GLM_4_AirX, glmExecutor);
+        this.executorGroup.put(Model.GLM_4_Air, glmExecutor);
+        this.executorGroup.put(Model.GLM_4_FlashX, glmExecutor);
+        this.executorGroup.put(Model.GLM_4_Flash, glmExecutor);
+        this.executorGroup.put(Model.GLM_4_AllTools, glmExecutor);
         this.executorGroup.put(Model.COGVIEW_3, glmExecutor);
         return this.executorGroup;
     }
