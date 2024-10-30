@@ -6,7 +6,7 @@
 
     <groupId>cn.bugstack</groupId>
     <artifactId>chatglm-sdk-java</artifactId>
-    <version>2.1</version>
+    <version>2.2</version>
 
     <name>chatglm-sdk-java</name>
     <description>OpenAI Java SDK, ZhiPuAi ChatGLM Java SDK . Copyright © 2023 bugstack虫洞栈 All rights reserved. 版权所有（C）小傅哥 https://github.com/fuzhengwei/chatglm-sdk-java</description>
@@ -49,6 +49,10 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <retrofit2.version>2.9.0</retrofit2.version>
         <slf4j.version>2.0.6</slf4j.version>
+        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <maven-checksum-plugin.version>1.10</maven-checksum-plugin.version>
     </properties>
 
     <dependencies>
@@ -149,7 +153,6 @@
     </dependencies>
 
     <build>
-        <finalName>chatglm-sdk-java</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -159,107 +162,112 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.7</version>
+            <!--<plugin>
+                <groupId>net.nicoulaj.maven.plugins</groupId>
+                <artifactId>checksum-maven-plugin</artifactId>
+                <version>${maven-checksum-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>create-checksums</id>
+                        <goals>
+                            <goal>artifacts</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <aggregate>true</aggregate>
+                    <charset>UTF-8</charset>
+                    <docencoding>UTF-8</docencoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                            <javadocExecutable>
+                                /Library/Java/JavaVirtualMachines/jdk1.8.0_311.jdk/Contents/Home/bin/javadoc
+                            </javadocExecutable>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>-->
         </plugins>
     </build>
 
-<!--    <profiles>-->
-<!--        <profile>-->
-<!--            &lt;!&ndash;注意,此id必须与setting.xml中指定的一致,不要自作聪明改它名字&ndash;&gt;-->
-<!--            <id>release</id>-->
-<!--            <activation>-->
-<!--                <activeByDefault>true</activeByDefault>-->
-<!--            </activation>-->
-<!--            <build>-->
-<!--                &lt;!&ndash;发布到中央SNAPSHOT仓库插件&ndash;&gt;-->
-<!--                <plugins>-->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-release-plugin</artifactId>-->
-<!--                        <version>2.5.3</version>-->
-<!--                        <configuration>-->
-<!--                            <autoVersionSubmodules>true</autoVersionSubmodules>-->
-<!--                            <useReleaseProfile>false</useReleaseProfile>-->
-<!--                            <releaseProfiles>release</releaseProfiles>-->
-<!--                            <goals>deploy</goals>-->
-<!--                        </configuration>-->
-<!--                    </plugin>-->
-
-<!--                    &lt;!&ndash;生成源码插件&ndash;&gt;-->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-source-plugin</artifactId>-->
-<!--                        <version>2.2.1</version>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <id>attach-sources</id>-->
-<!--                                <goals>-->
-<!--                                    <goal>jar-no-fork</goal>-->
-<!--                                </goals>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
-
-<!--                    &lt;!&ndash;生成API文档插件&ndash;&gt;-->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                        <version>2.9.1</version>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <id>attach-javadocs</id>-->
-<!--                                <goals>-->
-<!--                                    <goal>jar</goal>-->
-<!--                                </goals>-->
-<!--                                <configuration>-->
-<!--                                    <additionalparam>-Xdoclint:none</additionalparam>-->
-<!--                                    &lt;!&ndash; /usr/libexec/java_home -V &ndash;&gt;-->
-<!--&lt;!&ndash;                                    <javadocExecutable>/Library/Java/JavaVirtualMachines/jdk1.8.0_311.jdk/Contents/Home/bin/javadoc</javadocExecutable>&ndash;&gt;-->
-<!--                                </configuration>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
-
-<!--                    &lt;!&ndash;gpg插件&ndash;&gt;-->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-gpg-plugin</artifactId>-->
-<!--                        <version>1.5</version>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <id>sign-artifacts</id>-->
-<!--                                <phase>verify</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>sign</goal>-->
-<!--                                </goals>-->
-<!--                                <configuration>-->
-<!--                                    <keyname>fuzhengwei</keyname>-->
-<!--                                    <passphrase>123456</passphrase>-->
-<!--                                </configuration>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
-
-<!--                </plugins>-->
-<!--            </build>-->
-
-<!--            <distributionManagement>-->
-<!--                <snapshotRepository>-->
-<!--                    &lt;!&ndash;注意,此id必须与setting.xml中指定的一致&ndash;&gt;-->
-<!--                    <id>ossrh</id>-->
-<!--                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>-->
-<!--                </snapshotRepository>-->
-<!--                <repository>-->
-<!--                    <id>release</id>-->
-<!--                    <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>-->
-<!--                </repository>-->
-<!--            </distributionManagement>-->
-<!--        </profile>-->
-
-<!--    </profiles>-->
+    <!--<profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version> &lt;!&ndash; 使用最新版本 &ndash;&gt;
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal> &lt;!&ndash; 绑定到 jar 目标 &ndash;&gt;
+                                </goals>
+                                <configuration>
+                                    <additionalparam>-Xdoclint:none</additionalparam>
+                                    <javadocExecutable>
+                                        /Library/Java/JavaVirtualMachines/jdk1.8.0_311.jdk/Contents/Home/bin/javadoc
+                                    </javadocExecutable>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>-->
 
 </project>

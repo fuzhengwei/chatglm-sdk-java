@@ -448,3 +448,10 @@ chatglm:
 - 📺 视频：[B站 小傅哥の码场](https://space.bilibili.com/15637440)
 - 💌 微信：[fustack](https://bugstack.cn/images/personal/fustack.png) - 备注来意
 - 🐾 我的编程知识星球：[实战生产级项目、手写框架级源码，可以向我 1对1 提问，解答技术/职场/规划问题](https://bugstack.cn/md/zsxq/introduce.html)
+
+---
+
+```shell
+md5 chatglm-sdk-java-2.2.pom > chatglm-sdk-java-2.2.pom.md5
+shasum chatglm-sdk-java-2.2.pom > chatglm-sdk-java-2.2.pom.sha1
+```
